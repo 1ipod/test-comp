@@ -7,6 +7,7 @@ fn main(){
 	mut skip := false
 	mut x := 0
 	mut y := 0
+	mut z := 0
 	mut ma := 0
 	mut r := 0
 	mut a := false
@@ -24,18 +25,27 @@ fn main(){
 		match token{
 			'x'    {x = prgm[i + 1].int(); skip = true}
 			'y'    {y = prgm[i + 1].int(); skip = true}
+			'z'    {z = prgm[i + 1].int(); skip = true}
 			'r'    {r = prgm[i + 1].int(); skip = true}
 			'i'    {i = prgm[i + 1].int() - 1; a = true}
 			'ma'   {ma = prgm[i + 1].int(); skip = true}
 			'mv'   {mem[ma] = prgm[i + 1].int(); skip = true}
 			'rx'   {x = r}
 			'ry'   {y = r}
+			'rz'   {z = r}
 			'xma'  {ma = x}
 			'yma'  {ma = y}
+			'zma'  {ma = z}
 			'xmv'  {mem[ma] = x}
 			'ymv'  {mem[ma] = y}
+			'zmv'  {mem[ma] = z}
 			'mvx'  {x = mem[ma]}
 			'mvy'  {y = mem[ma]}
+			'mvy'  {z = mem[ma]}
+			'xz'   {z = x}
+			'yz'   {z = y}
+			'zx'   {x = z}
+			'zx'   {y = z}
 			'+'    {r = x + y}
 			'-'    {r = x - y}
 			'*'    {r = x * y}
@@ -49,9 +59,13 @@ fn main(){
 			if skip{
 				litoken += ' = '  + prgm[i + 1]
 			}
-			if a {i++}
-			println('${j}:${i}) ${litoken}|x:${x}|y:${y}|r:${r}|ma:${ma}|mv:${mem[ma]}|')
-			if a {i--}
+			if a {
+				i++
+			}
+			println('${j}:${i}) ${litoken}|x:${x}|y:${y}|z:${z}|r:${r}|ma:${ma}|mv:${mem[ma]}|')
+			if a {
+				i--
+			}
 		}
 		if p{
 			println(r)
