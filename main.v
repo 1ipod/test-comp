@@ -1,7 +1,7 @@
 import os
 
 fn main(){
-	prgm := ['x','1','+','ry','p','i','2']
+	prgm := ['z','3','zx','zy','zmv','ma','1','mv','3','*','p','rz','ma','1','mvx','y','1','-','p','rmv','rx','y','30','jxn0','zx','y','0','+','p','e','zx','ma','0','mvy','i','9']
 	mut mem := [0,0,0,0,0,0,0,0]
 	debug := false
 	mut skip := false
@@ -23,34 +23,36 @@ fn main(){
 		}
 		/* parse portion */
 		match token{
-			'x'    {x = prgm[i + 1].int(); skip = true}
-			'y'    {y = prgm[i + 1].int(); skip = true}
-			'z'    {z = prgm[i + 1].int(); skip = true}
-			'r'    {r = prgm[i + 1].int(); skip = true}
-			'i'    {i = prgm[i + 1].int() - 1; a = true}
-			'ma'   {ma = prgm[i + 1].int(); skip = true}
-			'mv'   {mem[ma] = prgm[i + 1].int(); skip = true}
-			'rx'   {x = r}
-			'ry'   {y = r}
-			'rz'   {z = r}
-			'xma'  {ma = x}
+			'x'    {x = prgm[i + 1].int(); skip = true}       /* Set X */
+			'y'    {y = prgm[i + 1].int(); skip = true}       /* Set Y */
+			'z'    {z = prgm[i + 1].int(); skip = true}       /* Set z */
+			'i'    {i = prgm[i + 1].int() - 1; a = true}      /* Set Instruction Pointer */
+			'ma'   {ma = prgm[i + 1].int(); skip = true}      /* Set Memory Address */
+			'mv'   {mem[ma] = prgm[i + 1].int(); skip = true} /* Set Memory Value */
+			'rx'   {x = r}                                    /* Set X to return */
+			'ry'   {y = r}                                    /* Set Y to return */
+			'rz'   {z = r}                                    /* Set Z to return */
+			'xma'  {ma = x}                                   /* Set Memory Address to X */
 			'yma'  {ma = y}
 			'zma'  {ma = z}
+			'rma'  {ma = r}
 			'xmv'  {mem[ma] = x}
 			'ymv'  {mem[ma] = y}
 			'zmv'  {mem[ma] = z}
+			'rmv'  {mem[ma] = r}
 			'mvx'  {x = mem[ma]}
 			'mvy'  {y = mem[ma]}
-			'mvy'  {z = mem[ma]}
+			'mvz'  {z = mem[ma]}
 			'xz'   {z = x}
 			'yz'   {z = y}
 			'zx'   {x = z}
-			'zx'   {y = z}
+			'zy'   {y = z}
 			'+'    {r = x + y}
 			'-'    {r = x - y}
 			'*'    {r = x * y}
 			'jxn0' {if x != 0 {i = y - 1}}
 			'p'    {p = true}
+			'in'   {r = os.input('${i}').int()}
 			'e'    {break}
 			else {}
 		}
